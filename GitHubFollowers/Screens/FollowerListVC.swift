@@ -15,7 +15,7 @@ class FollowerListVC: UIViewController {
     private var followers: [Follower] = []
     
     private var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,21 +43,25 @@ class FollowerListVC: UIViewController {
     }
     
     private func getFollowers() {
-        NetworkManager.shared.getFollowers(for: username, page: 1) { result in
+        NetworkManager.shared.getFollowers(for: username, page: 1) { [weak self] result in
+            guard let self = self else { return}
+            
             switch result {
             case .success(let follower):
                 self.followers = follower
                 self.updateData()
-            
+                
             case .failure(let error):
                 self.presentGFAlertOnMainThread(title: "Bad Stuf Happend", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
     
-    func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: indexPath) as! FollowerCell
+    private func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell in
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: indexPath) as? FollowerCell else { return UICollectionViewCell()}
+            
             cell.set(follower: follower)
             return cell
         })
