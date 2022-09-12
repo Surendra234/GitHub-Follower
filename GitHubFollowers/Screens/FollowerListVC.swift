@@ -13,9 +13,11 @@ class FollowerListVC: UIViewController {
     
     var username: String!
     private var followers: [Follower] = []
-    
+    private var filteredFollower: [Follower] = []
+
     private var hasMoreFollowers = true
     private var page = 1
+    
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
     
@@ -23,6 +25,7 @@ class FollowerListVC: UIViewController {
         super.viewDidLoad()
         
         configureViewController()
+        configureSearchController()
         configureCollectionView()
         getFollowers(username: username, page: page)
         configureDataSource()
@@ -31,10 +34,19 @@ class FollowerListVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
+
+    
+    private func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search a user"
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
+    }
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     private func configureCollectionView() {
@@ -54,9 +66,16 @@ class FollowerListVC: UIViewController {
             
             switch result {
             case .success(let follower):
+                
                 if follower.count < 100 { self.hasMoreFollowers = false}
                 self.followers.append(contentsOf: follower)
-                self.updateData()
+                
+                if self.followers.isEmpty {
+                    let message = "This user doesn't have any followers. Go follow them ☺️."
+                    DispatchQueue.main.async { self.showEmptyStackView(with: message, in: self.view)}
+                    return
+                }
+                self.updateData(on: self.followers)
                 
             case .failure(let error):
                 self.presentGFAlertOnMainThread(title: "Bad Stuf Happend", message: error.rawValue, buttonTitle: "Ok")
@@ -74,7 +93,7 @@ class FollowerListVC: UIViewController {
         })
     }
 
-    private func updateData() {
+    private func updateData(on followers: [Follower]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
         snapshot.appendSections([.main])
         snapshot.appendItems(followers)
@@ -93,5 +112,19 @@ extension FollowerListVC: UICollectionViewDelegate {
             page += 1
             getFollowers(username: username, page: page)
         }
+    }
+}
+
+extension FollowerListVC: UISearchResultsUpdating, UISearchBarDelegate {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else { return}
+        
+        filteredFollower = followers.filter({ $0.login.lowercased().contains(filter.lowercased())})
+        updateData(on: filteredFollower)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        updateData(on: followers)
     }
 }
