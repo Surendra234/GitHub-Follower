@@ -45,4 +45,10 @@ extension UIViewController {
             containerView = nil
         }
     }
+    
+    func showEmptyStackView(with message: String, in view: UIView) {
+        let emptyStackView = GFEmptyStateView(message: message)
+        emptyStackView.frame = view.bounds
+        view.addSubview(emptyStackView)
+    }
 }
