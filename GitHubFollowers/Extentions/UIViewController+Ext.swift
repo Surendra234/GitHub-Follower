@@ -48,7 +48,7 @@ extension UIViewController {
     
     func showEmptyStackView(with message: String, in view: UIView) {
         let emptyStackView = GFEmptyStateView(message: message)
-        emptyStackView.frame = view.bounds
+        emptyStackView.frame = view.frame
         view.addSubview(emptyStackView)
     }
 }
