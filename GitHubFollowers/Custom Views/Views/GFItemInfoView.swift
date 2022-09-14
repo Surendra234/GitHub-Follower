@@ -73,4 +73,17 @@ class GFItemInfoView: UIView {
         }
         countLabel.text = String(count)
     }
+    
+    func setItemInfo(itemInfo: ItemInfo) {
+        symbolImageView.image = UIImage(systemName: itemInfo.sysImageIcon)
+        titleLabel.text = itemInfo.title
+        countLabel.text = itemInfo.value
+    }
 }
+
+struct ItemInfo {
+    let title: String
+    let value: String
+    let sysImageIcon: String
+}
+
