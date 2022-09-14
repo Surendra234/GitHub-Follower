@@ -187,7 +187,7 @@ extension FollowerListVC: FollowerListVCDelegate {
         page = 1
         followers.removeAll()
         filteredFollower.removeAll()
-        collectionView.setContentOffset(.zero, animated: true)
         getFollowers(username: username, page: page)
     }
 }
+
