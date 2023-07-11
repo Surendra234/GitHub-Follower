@@ -16,6 +16,7 @@ class NetworkManager {
     private let baseURL = "https://api.github.com/users/"
     let cache = NSCache<NSString, UIImage>()
     
+    /// Get Followers of the user api call
     func getFollowers(for username: String, page: Int, completed: @escaping (Result<[Follower], GFError>) -> Void) {
         let endPoint = baseURL + "\(username)/followers?per_page=100&page=\(page)"
         
@@ -49,6 +50,7 @@ class NetworkManager {
         task.resume()
     }
     
+    /// Get Users Information api call
     func getUserInfo(for username: String, completed: @escaping (Result<User, GFError>) -> Void) {
         let endpoint = baseURL + "\(username)"
         

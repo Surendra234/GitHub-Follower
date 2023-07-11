@@ -8,7 +8,7 @@
 import UIKit
 
 class GFAvatarImageView: UIImageView {
-    
+
     private let placeholderImage = UIImage(named: "avatar-placeholder")
     private let cache = NetworkManager.shared.cache
 
@@ -16,7 +16,6 @@ class GFAvatarImageView: UIImageView {
         super.init(frame: frame)
         configure()
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -14,6 +14,7 @@ protocol UserInfoVCDelegate: AnyObject {
 
 class UserInfoVC: UIViewController {
 
+    // MARK: - Properties
     private let headerView = UIView()
     private let itemViewOne = UIView()
     private let itemViewTwo = UIView()
@@ -23,6 +24,7 @@ class UserInfoVC: UIViewController {
     var username: String!
     weak var delegate: FollowerListVCDelegate!
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,14 +33,13 @@ class UserInfoVC: UIViewController {
         getUserInfo()
     }
     
-    private func configureViewController() {
-        view.backgroundColor = .systemBackground
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
-        navigationItem.rightBarButtonItem = doneButton
+    // MARK: - Handlers
+    @objc private func dismissVC() {
+        dismiss(animated: true)
     }
     
+    // MARK: - API Call
     private func getUserInfo() {
-        
         NetworkManager.shared.getUserInfo(for: username) { [weak self] result in
             guard let self = self else { return}
             
@@ -51,6 +52,13 @@ class UserInfoVC: UIViewController {
                 self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
         }
+    }
+    
+    // MARK: - Helpers
+    private func configureViewController() {
+        view.backgroundColor = .systemBackground
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
+        navigationItem.rightBarButtonItem = doneButton
     }
     
     private func configureUIElements(with user: User) {
@@ -103,16 +111,12 @@ class UserInfoVC: UIViewController {
         childVC.view.frame = containerView.bounds
         childVC.didMove(toParent: self)
     }
-    
-    @objc private func dismissVC() {
-        dismiss(animated: true)
-    }
 }
 
+// MARK: - UserInfoVCDelegate
 extension UserInfoVC: UserInfoVCDelegate {
     
     func didTapGitHubProfile(for user: User) {
-        
         guard let url = URL(string: user.htmlUrl) else {
             presentGFAlertOnMainThread(title: "Invalid URL", message: "The url attached to this user is invalid.", buttonTitle: "Ok")
             return
@@ -121,7 +125,6 @@ extension UserInfoVC: UserInfoVCDelegate {
     }
     
     func didTapGetFollowers(for user: User) {
-        
         guard user.followers != 0 else {
             presentGFAlertOnMainThread(title: "No followers", message: "This user has no followers. What a shame 😞.", buttonTitle: "So sad")
             return

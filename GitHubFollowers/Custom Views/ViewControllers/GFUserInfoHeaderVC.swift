@@ -9,15 +9,17 @@ import UIKit
 
 class GFUserInfoHeaderVC: UIViewController {
     
-    let avatarImageView = GFAvatarImageView(frame: .zero)
-    let usernameLabel = GFTitleLabel(textAlignment: .left, fontSize: 34)
-    let nameLabel = GFSecondaryTitleLabel(fontSize: 18)
-    let locationImageView = UIImageView()
-    let locationLabel = GFSecondaryTitleLabel(fontSize: 18)
-    let bioLabel = GFBodyLabel(textAlignment: .left)
+    // MARK: - Properties
+    private let avatarImageView = GFAvatarImageView(frame: .zero)
+    private let usernameLabel = GFTitleLabel(textAlignment: .left, fontSize: 34)
+    private let nameLabel = GFSecondaryTitleLabel(fontSize: 18)
+    private let locationImageView = UIImageView()
+    private let locationLabel = GFSecondaryTitleLabel(fontSize: 18)
+    private let bioLabel = GFBodyLabel(textAlignment: .left)
     
     var user: User!
     
+    // MARK: - Initlizer
     init(user: User) {
         super.init(nibName: nil, bundle: nil)
         self.user = user
@@ -27,6 +29,7 @@ class GFUserInfoHeaderVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
@@ -34,7 +37,8 @@ class GFUserInfoHeaderVC: UIViewController {
         configureUIElements()
     }
     
-    func configureUIElements() {
+    // MARK: - Helpers
+    private func configureUIElements() {
         avatarImageView.downloadImage(from: user.avatarUrl)
         usernameLabel.text = user.login
         nameLabel.text = user.name ?? ""
@@ -46,7 +50,7 @@ class GFUserInfoHeaderVC: UIViewController {
         locationImageView.tintColor = .secondaryLabel
     }
 
-    func addSubviews() {
+    private func addSubviews() {
         view.addSubview(avatarImageView)
         view.addSubview(usernameLabel)
         view.addSubview(nameLabel)
@@ -55,7 +59,7 @@ class GFUserInfoHeaderVC: UIViewController {
         view.addSubview(bioLabel)
     }
 
-    func layoutUI() {
+    private func layoutUI() {
         let padding: CGFloat = 20
         let textImagePadding: CGFloat = 12
         locationImageView.translatesAutoresizingMaskIntoConstraints = false

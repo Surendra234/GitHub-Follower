@@ -9,9 +9,11 @@ import UIKit
 
 class FavoritesListVC: UIViewController {
 
+    // MARK: - Properties
     private let tableView = UITableView()
     private var favorites: [Follower] = []
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,12 +26,7 @@ class FavoritesListVC: UIViewController {
         getFavorites()
     }
     
-    private func configureViewController() {
-        title = "Favorites"
-        view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
+    // MARK: - API Call
     private func getFavorites() {
         PersitenceManager.retrieveFavorites { [weak self] result in
             guard let self = self else { return}
@@ -50,6 +47,13 @@ class FavoritesListVC: UIViewController {
         }
     }
     
+    // MARK: - Helpers
+    private func configureViewController() {
+        title = "Favorites"
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
@@ -60,6 +64,7 @@ class FavoritesListVC: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource, UITableViewDataSource
 extension FavoritesListVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,8 +79,8 @@ extension FavoritesListVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
+        
         let favorite = favorites[indexPath.row]
         let destVC = FollowerListVC()
         destVC.username = favorite.login

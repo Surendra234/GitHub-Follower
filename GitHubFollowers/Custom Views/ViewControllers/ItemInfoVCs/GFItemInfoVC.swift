@@ -9,6 +9,7 @@ import UIKit
 
 class GFItemInfoVC: UIViewController {
 
+    // MARK: - Properties
     let stackView = UIStackView()
     let itemInfoViewOne = GFItemInfoView()
     let itemInfoViewTwo = GFItemInfoView()
@@ -17,6 +18,7 @@ class GFItemInfoVC: UIViewController {
     var user: User!
     weak var delegate: UserInfoVCDelegate?
     
+    // MARK: - Initilizer
     init(user: User) {
         super.init(nibName: nil, bundle: nil)
         self.user = user
@@ -26,6 +28,7 @@ class GFItemInfoVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackgroundView()
@@ -34,6 +37,10 @@ class GFItemInfoVC: UIViewController {
         configureStackView()
     }
     
+    // MARK: - Handlers
+    @objc func actionButtonTapped() {}
+    
+    // MARK: - Helpers
     private func configureBackgroundView() {
         view.layer.cornerRadius = 18
         view.backgroundColor = .secondarySystemBackground
@@ -50,8 +57,6 @@ class GFItemInfoVC: UIViewController {
     private func configureActionButton() {
         actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
     }
-    
-    @objc func actionButtonTapped() {}
     
     private func layoutUI() {
         view.addSubview(stackView)

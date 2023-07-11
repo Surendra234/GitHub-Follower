@@ -15,8 +15,6 @@ class GFRepoItemVC: GFItemInfoVC {
     }
     
     private func configureItems() {
-//        itemInfoViewOne.set(itemInfoType: .repos, withCount: user.publicRepos)
-        
         itemInfoViewOne.setItemInfo(itemInfo: ItemInfo.init(title: "Public repos", value: String(user.publicRepos), sysImageIcon: SFSymbols.repos))
         
         itemInfoViewTwo.set(itemInfoType: .gists, withCount: user.publicGists)
