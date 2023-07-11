@@ -2,7 +2,7 @@
 //  GFEmptyStateView.swift
 //  GitHubFollowers
 //
-//  Created by Admin on 12/09/22.
+//  Created by Surendra on 10/07/23.
 //
 
 import UIKit

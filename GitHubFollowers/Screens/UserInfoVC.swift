@@ -2,7 +2,7 @@
 //  UserInfoVC.swift
 //  GitHubFollowers
 //
-//  Created by Admin on 13/09/22.
+//  Created by Surendra on 10/07/23.
 //
 
 import UIKit

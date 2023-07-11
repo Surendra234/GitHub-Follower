@@ -2,7 +2,7 @@
 //  FollowerCell.swift
 //  GitHubFollowers
 //
-//  Created by Admin on 11/09/22.
+//  Created by Surendra on 10/07/23.
 //
 
 import UIKit

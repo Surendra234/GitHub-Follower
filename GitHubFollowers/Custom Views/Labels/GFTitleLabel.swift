@@ -2,7 +2,7 @@
 //  GFTextLabel.swift
 //  GitHubFollowers
 //
-//  Created by Admin on 10/09/22.
+//  Created by Surendra on 07/07/23.
 //
 
 import UIKit

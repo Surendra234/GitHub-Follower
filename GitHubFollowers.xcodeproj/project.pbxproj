@@ -156,7 +156,6 @@
 			children = (
 				846A484F28CCABF30036DD5C /* SearchVC.swift */,
 				846A485928CCE4440036DD5C /* FollowerListVC.swift */,
-				846A485628CCAD2D0036DD5C /* FavoritesListVC.swift */,
 				846D767828D020B10045D6D7 /* UserInfoVC.swift */,
 			);
 			path = Screens;
@@ -165,6 +164,7 @@
 		846A484E28CCAB7F0036DD5C /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				846A485628CCAD2D0036DD5C /* FavoritesListVC.swift */,
 				846A483928CCA5F00036DD5C /* AppDelegate.swift */,
 				846A483B28CCA5F00036DD5C /* SceneDelegate.swift */,
 				846A484228CCA5F20036DD5C /* Assets.xcassets */,
@@ -507,7 +507,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 34ZY4UYRXV;
+				DEVELOPMENT_TEAM = 5LVCGY9AV3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GitHubFollowers/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -535,7 +535,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 34ZY4UYRXV;
+				DEVELOPMENT_TEAM = 5LVCGY9AV3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GitHubFollowers/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

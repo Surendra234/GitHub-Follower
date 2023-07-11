@@ -2,19 +2,21 @@
 //  SearchVC.swift
 //  GitHubFollowers
 //
-//  Created by Admin on 10/09/22.
+//  Created by Surendra on 07/07/23.
 //
 
 import UIKit
 
 class SearchVC: UIViewController {
 
+    // MARK: - Properties
     private let logoImageView = UIImageView()
     private let usernameTextFiled = GFTextField()
     private let callToActionButton = GFButton(backgroundColor: .systemGreen, title: "Get Follower")
     
     private var isUsernameEntered: Bool { return !usernameTextFiled.text!.isEmpty}
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,6 +32,7 @@ class SearchVC: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
+    // MARK: - handler
     @objc private func pushFollowerListVC() {
         guard isUsernameEntered else {
             presentGFAlertOnMainThread(title: "Empty Username", message: "please enter a username. we need to know who to look for", buttonTitle: "Ok")
@@ -41,6 +44,7 @@ class SearchVC: UIViewController {
         navigationController?.pushViewController(followerListVC, animated: true)
     }
     
+    // MARK: - Helpers
     private func createDismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
@@ -84,6 +88,7 @@ class SearchVC: UIViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension SearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         pushFollowerListVC()
